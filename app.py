@@ -6,6 +6,7 @@ from helper import (LOGIN_ERROR, LOGIN_OK, MESSAGE_CREATED, MESSAGE_DELETED,
                      WELCOME_MESSAGE, delete_message, get_form_params_post,
                       get_mailbox_ids, get_messages_from_db, get_user_id, 
                       insert_into_mailbox, insert_into_messages)
+import os
 import pymysql
 
 
@@ -20,8 +21,8 @@ def db_connection():
         conn = pymysql.connect(
         host = 'sql6.freesqldatabase.com',
         database = 'sql6414237',
-        user = app.config["DB_USER"],
-        password = app.config["DB_PASS"],
+        user = os.environ["DB_USER"],
+        password = os.environ["DB_PASS"],
         charset = 'utf8mb4',
         cursorclass = pymysql.cursors.DictCursor
     )
