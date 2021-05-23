@@ -167,11 +167,9 @@ def login():
     password = request.form['password'].encode('utf-8')
     cursor.execute(f"SELECT id, password from users WHERE username='{username}'")
     user = cursor.fetchone()
-    print(user)
     if not user:
         return LOGIN_ERROR
     actual_password = user['password'].encode('utf-8')
-    print(actual_password)
     if not bcrypt.checkpw(password, actual_password):
         return LOGIN_ERROR
     
