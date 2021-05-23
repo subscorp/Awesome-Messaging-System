@@ -133,7 +133,6 @@ def sign_up():
     return SIGN_UP_OK
 
 
-
 @app.route('/login', methods=['POST'])
 def login():
     """Allows the user to log in to the messaging system"""
