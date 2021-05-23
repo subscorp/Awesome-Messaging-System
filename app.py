@@ -3,7 +3,7 @@ from datetime import date
 from flask import Flask, request, session, jsonify
 from helper import (LOGIN_ERROR, LOGIN_OK, MESSAGE_CREATED, MESSAGE_DELETED,
                     MESSAGES_NOT_FOUND, NOT_LOGGED_IN, OK, SIGN_UP_OK,
-                     WELCOME_MESSAGE, db_connection, delete_message, get_form_params_post,
+                     WELCOME_MESSAGE, delete_message, get_form_params_post,
                       get_mailbox_ids, get_messages_from_db, get_user_id, 
                       insert_into_mailbox, insert_into_messages)
 import pymysql
