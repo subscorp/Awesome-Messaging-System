@@ -11,7 +11,7 @@ import pymysql
 
 
 app = Flask(__name__)
-#app.secret_key = 'secretkey!'
+app.secret_key = os.environ['SECRET_KEY']
 
 
 def db_connection():
