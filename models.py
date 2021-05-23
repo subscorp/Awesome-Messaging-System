@@ -33,10 +33,10 @@ query4 = """ CREATE TABLE outbox (
     user_id integer NOT NULL,
     message_id integer NOT NULL
 )"""
-query5 = " INSERT INTO users (username) VALUES('Ori')"
-query6 = " INSERT INTO users (username) VALUES('Sagi')"
-query7 = " INSERT INTO users (username) VALUES('Daniel')"
-query8 = " INSERT INTO users (username) VALUES('Or')"
+query5 = " INSERT INTO users (username) VALUES('Ori', 'ori@ori', 'ori123')"
+query6 = " INSERT INTO users (username) VALUES('Sagi', 'sagi@sagi', 'sagi123')"
+query7 = " INSERT INTO users (username) VALUES('Daniel', 'daniel@daniel', daniel123)"
+query8 = " INSERT INTO users (username) VALUES('Or', 'or@or', 'or123')"
 
 cursor.execute(query1)
 cursor.execute(query2)

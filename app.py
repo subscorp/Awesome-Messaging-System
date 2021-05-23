@@ -6,7 +6,7 @@ from helper import (LOGIN_ERROR, LOGIN_OK, MESSAGE_CREATED, MESSAGE_DELETED,
 
 
 app = Flask(__name__)
-app.config['SECRET KEY'] = 'secretkey!'
+app.secret_key = 'secretkey!'
 
 
 @app.route('/')
@@ -153,7 +153,8 @@ def sign_up():
                             VALUES(%s, %s, %s)"""
     cursor.execute(sql, (username, email, hashed_password))
     conn.commit()
-    session['user_id'] = cursor.lastrowid
+    cursor.execute(f"SELECT id from users WHERE username='{username}'")
+    session['user_id'] = cursor.fetchone()['id']
     return SIGN_UP_OK
 
 
@@ -164,12 +165,11 @@ def login():
     cursor = conn.cursor()
     username = request.form['username']
     password = request.form['password'].encode('utf-8')
-    email = request.form['email']
-    cursor.execute(f"SELECT id, password from users WHERE username='{username}' and email='{email}'")
+    cursor.execute(f"SELECT id, password from users WHERE username='{username}'")
     user = cursor.fetchone()
     if not user:
         return LOGIN_ERROR
-    actual_password = user['password']
+    actual_password = user['password'].encode('utf-8')
     if not bcrypt.checkpw(password, actual_password):
         return LOGIN_ERROR
     
