@@ -6,6 +6,7 @@ from helper import (LOGIN_ERROR, LOGIN_OK, MESSAGE_CREATED, MESSAGE_DELETED,
 
 
 app = Flask(__name__)
+app.config['SECRET KEY'] = 'secretkey!'
 
 
 @app.route('/')
