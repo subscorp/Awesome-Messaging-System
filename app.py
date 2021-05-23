@@ -57,7 +57,7 @@ def write_message():
     
     # Inserting into messages, inbox and outbox
     message_id = insert_into_messages(sender, receiver, message,
-                                             subject, creation_date)
+                                             subject, creation_date, cursor)
     insert_into_mailbox(receiver_id, message_id, cursor, 'inbox')
     insert_into_mailbox(sender_id, message_id, cursor, 'outbox')
     conn.commit()
