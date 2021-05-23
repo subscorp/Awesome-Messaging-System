@@ -116,6 +116,7 @@ def handle_message(message_id):
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
+    """Signs up a new user to the database"""
     conn = db_connection()
     cursor = conn.cursor()
     salt = bcrypt.gensalt(prefix=b'2b', rounds=10)
@@ -135,6 +136,7 @@ def sign_up():
 
 @app.route('/login', methods=['POST'])
 def login():
+    """Allows the user to log in to the messaging system"""
     conn = db_connection()
     cursor = conn.cursor()
     username = request.form['username']
