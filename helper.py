@@ -1,4 +1,5 @@
 import pymysql
+from app import app
 
 
 # Constants
@@ -26,8 +27,8 @@ def db_connection():
         conn = pymysql.connect(
         host = 'sql6.freesqldatabase.com',
         database = 'sql6414237',
-        user = 'sql6414237',
-        password = 'J5TNQY7W1B',
+        user = app.config["DB_USER"],
+        password = app.config["DB_PASS"],
         charset = 'utf8mb4',
         cursorclass = pymysql.cursors.DictCursor
     )

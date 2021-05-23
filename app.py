@@ -9,8 +9,7 @@ from helper import (LOGIN_ERROR, LOGIN_OK, MESSAGE_CREATED, MESSAGE_DELETED,
 
 
 app = Flask(__name__)
-app.secret_key = 'secretkey!'
-
+#app.secret_key = 'secretkey!'
 
 @app.route('/')
 def welcome_user():
