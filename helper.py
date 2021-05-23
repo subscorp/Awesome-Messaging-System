@@ -1,12 +1,18 @@
 import pymysql
 
+
+# Constants
 OK = 200
 CREATED = 201
+FORBIDDEN = 403 
 NOT_FOUND = 404
 MESSAGES_NOT_FOUND = 'No messages available', NOT_FOUND
 MESSAGE_CREATED = "The message was created successfully", CREATED
 MESSAGE_DELETED = "The message was deleted successfully", OK
 WRONG_MESSAGE_ID = 'Wrong message id', NOT_FOUND
+SIGN_UP_OK = "Signed up successfully", OK
+LOGIN_OK = "Logged in successfully", OK
+LOGIN_ERROR = "Wrong username or password", FORBIDDEN
 
 
 def db_connection():

@@ -1,6 +1,8 @@
+import bcrypt
 from datetime import date
-from flask import Flask, request, jsonify
-from helper import (MESSAGE_CREATED, MESSAGE_DELETED, MESSAGES_NOT_FOUND, OK, db_connection)
+from flask import Flask, request, session, jsonify
+from helper import (LOGIN_ERROR, LOGIN_OK, MESSAGE_CREATED, MESSAGE_DELETED,
+                    MESSAGES_NOT_FOUND, NOT_LOGGED_IN, OK, SIGN_UP_OK, db_connection)
 
 
 app = Flask(__name__)
@@ -11,10 +13,14 @@ def welcome_user():
     return 'Welcome to our Messaging System!', OK
 
 
-@app.route('/messages/<int:user_id>', methods=['GET'])
-@app.route('/messages/<int:user_id>/outbox', methods=['GET'])
-@app.route("/messages/<int:user_id>/unread", methods=['GET'])
+@app.route('/messages', methods=['GET'])
+@app.route('/messages/outbox', methods=['GET'])
+@app.route("/messages/unread", methods=['GET'])
 def get_messages(user_id):
+    if not 'user_id' in session:
+        return NOT_LOGGED_IN
+
+    user_id = session['user_id']
     conn = db_connection()
     cursor = conn.cursor()
     mailbox = 'outbox' if request.url.endswith('outbox') else 'inbox'
@@ -72,8 +78,12 @@ def write_message():
     return MESSAGE_CREATED
 
 
-@app.route('/message/<int:user_id>/<int:message_id>', methods=['PUT', 'DELETE'])
-def handle_message(user_id, message_id):
+@app.route('/message/<int:message_id>', methods=['PUT', 'DELETE'])
+def handle_message(message_id):
+    if not 'user_id' in session:
+        return NOT_LOGGED_IN
+
+    user_id = session['user_id']
     conn = db_connection()
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM messages WHERE id='{message_id}'")
@@ -128,6 +138,42 @@ def handle_message(user_id, message_id):
         
         return MESSAGES_NOT_FOUND
 
+
+@app.route('/sign_up', methods=['POST'])
+def sign_up():
+    conn = db_connection()
+    cursor = conn.cursor()
+    salt = bcrypt.gensalt(prefix=b'2b', rounds=10)
+    unhashed_password = request.form['password'].encode('utf-8')
+    hashed_password = bcrypt.hashpw(unhashed_password, salt)
+    username = request.form['username']
+    email = request.form['email']
+    sql = """INSERT INTO users (username, email, password)
+                            VALUES(%s, %s, %s)"""
+    cursor.execute(sql, (username, email, hashed_password))
+    conn.commit()
+    session['user_id'] = cursor.lastrowid
+    return SIGN_UP_OK
+
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    conn = db_connection()
+    cursor = conn.cursor()
+    username = request.form['username']
+    password = request.form['password'].encode('utf-8')
+    email = request.form['email']
+    cursor.execute(f"SELECT id, password from users WHERE username='{username}' and email='{email}'")
+    user = cursor.fetchone()
+    if not user:
+        return LOGIN_ERROR
+    actual_password = user['password']
+    if not bcrypt.checkpw(password, actual_password):
+        return LOGIN_ERROR
+    
+    session['user_id'] = user['id']
+    return LOGIN_OK
 
 
 if __name__ == '__main__':

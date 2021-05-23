@@ -12,7 +12,9 @@ conn = pymysql.connect(
 cursor = conn.cursor()
 query1 = """ CREATE TABLE users (
     id integer PRIMARY KEY AUTO_INCREMENT,
-    username text NOT NULL
+    username text NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL
 )"""
 query2 = """ CREATE TABLE messages (
     id integer PRIMARY KEY AUTO_INCREMENT,
