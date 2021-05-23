@@ -2,9 +2,9 @@ import pymysql
 
 conn = pymysql.connect(
     host = 'sql6.freesqldatabase.com',
-    database = 'sql6414222',
-    user = 'sql6414222',
-    password = 'hBfZ7hzQMV',
+    database = 'sql6414237',
+    user = 'sql6414237',
+    password = 'J5TNQY7W1B',
     charset = 'utf8mb4',
     cursorclass = pymysql.cursors.DictCursor
 )
@@ -33,10 +33,10 @@ query4 = """ CREATE TABLE outbox (
     user_id integer NOT NULL,
     message_id integer NOT NULL
 )"""
-query5 = " INSERT INTO users (username) VALUES('Ori', 'ori@ori', 'ori123')"
-query6 = " INSERT INTO users (username) VALUES('Sagi', 'sagi@sagi', 'sagi123')"
-query7 = " INSERT INTO users (username) VALUES('Daniel', 'daniel@daniel', daniel123)"
-query8 = " INSERT INTO users (username) VALUES('Or', 'or@or', 'or123')"
+query5 = " INSERT INTO users (username, email, password) VALUES('Ori', 'ori@ori', 'ori123')"
+query6 = " INSERT INTO users (username, email, password) VALUES('Sagi', 'sagi@sagi', 'sagi123')"
+query7 = " INSERT INTO users (username, email, password) VALUES('Daniel', 'daniel@daniel', 'daniel123')"
+query8 = " INSERT INTO users (username, email, password) VALUES('Or', 'or@or', 'or123')"
 
 cursor.execute(query1)
 cursor.execute(query2)
@@ -48,4 +48,3 @@ cursor.execute(query7)
 cursor.execute(query8)
 
 conn.commit()
-conn.close()

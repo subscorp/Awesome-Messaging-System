@@ -20,9 +20,9 @@ def db_connection():
     try:
         conn = pymysql.connect(
         host = 'sql6.freesqldatabase.com',
-        database = 'sql6414222',
-        user = 'sql6414222',
-        password = 'hBfZ7hzQMV',
+        database = 'sql6414237',
+        user = 'sql6414237',
+        password = 'J5TNQY7W1B',
         charset = 'utf8mb4',
         cursorclass = pymysql.cursors.DictCursor
     )
