@@ -1,7 +1,3 @@
-import pymysql
-from app import app
-
-
 # Constants
 
 OK = 200
@@ -19,23 +15,6 @@ NOT_LOGGED_IN = "Please log in with your credentials", FORBIDDEN
 WELCOME_MESSAGE = "Welcome to our Messaging System!", OK
 
 # Helper functions
-
-def db_connection():
-    """Returns a database connection."""
-    conn = None
-    try:
-        conn = pymysql.connect(
-        host = 'sql6.freesqldatabase.com',
-        database = 'sql6414237',
-        user = app.config["DB_USER"],
-        password = app.config["DB_PASS"],
-        charset = 'utf8mb4',
-        cursorclass = pymysql.cursors.DictCursor
-    )
-    except pymysql.Error as e:
-        print(e)
-    return conn
-
 
 def get_mailbox_ids(user_id, cursor, mailbox):
     cursor.execute(f"SELECT message_id FROM {mailbox} WHERE user_id='{user_id}'")
