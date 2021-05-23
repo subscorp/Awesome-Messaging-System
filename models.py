@@ -1,14 +1,7 @@
-import pymysql
+from helper import db_connection
 
-conn = pymysql.connect(
-    host = 'sql6.freesqldatabase.com',
-    database = 'sql6414237',
-    user = 'sql6414237',
-    password = 'J5TNQY7W1B',
-    charset = 'utf8mb4',
-    cursorclass = pymysql.cursors.DictCursor
-)
 
+conn = db_connection()
 cursor = conn.cursor()
 query1 = """ CREATE TABLE users (
     id integer PRIMARY KEY AUTO_INCREMENT,
@@ -34,9 +27,7 @@ query4 = """ CREATE TABLE outbox (
     message_id integer NOT NULL
 )"""
 
-cursor.execute(query1)
-cursor.execute(query2)
-cursor.execute(query3)
-cursor.execute(query4)
-
+queries = [query1, query2, query3, query4]
+for query in queries:
+    cursor.execute(query)
 conn.commit()
