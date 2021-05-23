@@ -16,7 +16,7 @@ def welcome_user():
 @app.route('/messages', methods=['GET'])
 @app.route('/messages/outbox', methods=['GET'])
 @app.route("/messages/unread", methods=['GET'])
-def get_messages(user_id):
+def get_messages():
     if not 'user_id' in session:
         return NOT_LOGGED_IN
 
