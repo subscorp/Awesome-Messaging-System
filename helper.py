@@ -2,6 +2,7 @@ import pymysql
 
 
 # Constants
+
 OK = 200
 CREATED = 201
 FORBIDDEN = 403 
@@ -16,6 +17,7 @@ LOGIN_ERROR = "Wrong username or password", FORBIDDEN
 NOT_LOGGED_IN = "Please log in with your credentials", FORBIDDEN
 WELCOME_MESSAGE = "Welcome to our Messaging System!", OK
 
+# Helper functions
 
 def db_connection():
     """Returns a database connection."""
