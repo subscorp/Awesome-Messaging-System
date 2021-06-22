@@ -1,5 +1,5 @@
-__pycache__
-include
-Lib
-Scripts
+/__pycache__
+/include
+/Lib
+/Scripts
 pyvenv.cfg
